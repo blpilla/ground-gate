@@ -1,0 +1,157 @@
+{
+  "description": "Paired faithful/unfaithful RAG answers over Brazilian regulated-domain documents (insurance, health, legal). Every pair shares the same retrieved context; the unfaithful answer contains at least one claim the context does not support. Labels are at answer level: 'faithful' answers must pass a gate, 'unfaithful' answers must be blocked.",
+  "cases": [
+    {
+      "name": "carencia_emergencia",
+      "context": [
+        {
+          "id": "1",
+          "text": "O plano Essencial cobre consultas de emergencia com carencia de 24 horas apos a assinatura do contrato. O limite anual de reembolso do plano Essencial e de R$ 50.000."
+        }
+      ],
+      "faithful": "A carencia para consultas de emergencia no plano Essencial e de 24 horas [1]. O limite anual de reembolso do plano Essencial e de R$ 50.000 [1].",
+      "unfaithful": "A carencia para consultas de emergencia no plano Essencial e de 12 horas [1]. O limite anual de reembolso do plano Essencial e de R$ 50.000 [1].",
+      "domain": "insurance"
+    },
+    {
+      "name": "cobertura_odontologica",
+      "context": [
+        {
+          "id": "1",
+          "text": "O plano Premium inclui cobertura odontologica basica: limpeza, restauracao e extracao simples. Implantes e aparelhos ortodonticos nao estao cobertos."
+        }
+      ],
+      "faithful": "O plano Premium cobre limpeza, restauracao e extracao simples [1]. Implantes e aparelhos ortodonticos nao estao cobertos [1].",
+      "unfaithful": "O plano Premium cobre limpeza, restauracao e extracao simples [1]. Implantes dentarios estao cobertos com coparticipacao de 30% [1].",
+      "domain": "insurance"
+    },
+    {
+      "name": "prazo_sinistro",
+      "context": [
+        {
+          "id": "1",
+          "text": "O segurado deve comunicar o sinistro a seguradora em ate 30 dias corridos a partir da data do evento. A comunicacao pode ser feita pelo aplicativo ou pela central telefonica."
+        },
+        {
+          "id": "2",
+          "text": "A franquia do seguro de automovel do plano Total e de R$ 2.500 por evento."
+        }
+      ],
+      "faithful": "O segurado deve comunicar o sinistro em ate 30 dias corridos a partir da data do evento [1]. A comunicacao pode ser feita pelo aplicativo ou pela central telefonica [1].",
+      "unfaithful": "O segurado deve comunicar o sinistro em ate 30 dias corridos a partir da data do evento [2]. A franquia pode ser parcelada em ate 10 vezes sem juros [2].",
+      "domain": "insurance"
+    },
+    {
+      "name": "reembolso_consulta",
+      "context": [
+        {
+          "id": "1",
+          "text": "O reembolso de consultas medicas fora da rede credenciada e de ate R$ 300 por consulta no plano Executivo. O prazo de pagamento do reembolso e de 15 dias uteis apos o envio da documentacao completa."
+        }
+      ],
+      "faithful": "No plano Executivo, o reembolso de consultas fora da rede credenciada e de ate R$ 300 por consulta [1]. O pagamento do reembolso ocorre em 15 dias uteis apos o envio da documentacao completa [1].",
+      "unfaithful": "No plano Executivo, o reembolso de consultas fora da rede credenciada e de ate R$ 800 por consulta [1]. O pagamento do reembolso ocorre em 5 dias uteis apos o envio da documentacao completa [1].",
+      "domain": "insurance"
+    },
+    {
+      "name": "doenca_preexistente",
+      "context": [
+        {
+          "id": "1",
+          "text": "Para doencas e lesoes preexistentes declaradas, aplica-se cobertura parcial temporaria de 24 meses. Durante esse periodo, procedimentos de alta complexidade relacionados a condicao preexistente nao sao cobertos."
+        }
+      ],
+      "faithful": "Para doencas preexistentes declaradas aplica-se cobertura parcial temporaria de 24 meses [1]. Durante esse periodo, procedimentos de alta complexidade relacionados a condicao preexistente nao sao cobertos [1].",
+      "unfaithful": "Para doencas preexistentes declaradas aplica-se cobertura parcial temporaria de 24 meses [1]. Durante esse periodo, todos os procedimentos continuam cobertos normalmente mediante autorizacao previa [1].",
+      "domain": "insurance"
+    },
+    {
+      "name": "citacao_fonte_errada",
+      "context": [
+        {
+          "id": "policy",
+          "text": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias."
+        },
+        {
+          "id": "faq",
+          "text": "A troca de plano pode ser solicitada a qualquer momento pelo aplicativo, com efeito no ciclo de faturamento seguinte."
+        }
+      ],
+      "faithful": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias [policy]. A troca de plano pode ser solicitada a qualquer momento pelo aplicativo [faq].",
+      "unfaithful": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias [faq]. A troca de plano pode ser solicitada a qualquer momento pelo aplicativo [policy].",
+      "domain": "insurance"
+    },
+    {
+      "name": "saude_medicamento",
+      "domain": "health",
+      "context": [
+        {
+          "id": "1",
+          "text": "O medicamento X deve ser administrado a cada 8 horas, com dose maxima de 3 gramas por dia. Nao e recomendado para gestantes."
+        }
+      ],
+      "faithful": "O medicamento X deve ser administrado a cada 8 horas [1]. A dose maxima e de 3 gramas por dia [1]. Nao e recomendado para gestantes [1].",
+      "unfaithful": "O medicamento X deve ser administrado a cada 12 horas [1]. A dose maxima e de 5 gramas por dia [1]."
+    },
+    {
+      "name": "saude_carencia_exames",
+      "domain": "health",
+      "context": [
+        {
+          "id": "1",
+          "text": "Exames laboratoriais de rotina tem carencia de 30 dias. Exames de imagem, como ressonancia magnetica, tem carencia de 180 dias."
+        }
+      ],
+      "faithful": "Exames laboratoriais de rotina tem carencia de 30 dias [1]. A ressonancia magnetica tem carencia de 180 dias [1].",
+      "unfaithful": "Exames laboratoriais de rotina tem carencia de 30 dias [1]. A ressonancia magnetica tem carencia de 60 dias [1]."
+    },
+    {
+      "name": "juridico_rescisao",
+      "domain": "legal",
+      "context": [
+        {
+          "id": "1",
+          "text": "O contrato pode ser rescindido por qualquer das partes mediante aviso previo de 60 dias. Em caso de rescisao sem aviso previo, aplica-se multa de 20% sobre o valor remanescente."
+        }
+      ],
+      "faithful": "O contrato pode ser rescindido mediante aviso previo de 60 dias [1]. A rescisao sem aviso previo gera multa de 20% sobre o valor remanescente [1].",
+      "unfaithful": "O contrato pode ser rescindido mediante aviso previo de 30 dias [1]. A rescisao sem aviso previo gera multa de 10% sobre o valor remanescente [1]."
+    },
+    {
+      "name": "juridico_retencao_dados",
+      "domain": "legal",
+      "context": [
+        {
+          "id": "1",
+          "text": "Nos termos da politica de privacidade, os dados pessoais dos clientes sao retidos por 5 anos apos o encerramento da conta. O titular pode solicitar a exclusao antecipada mediante requerimento formal."
+        }
+      ],
+      "faithful": "Os dados pessoais sao retidos por 5 anos apos o encerramento da conta [1]. O titular pode solicitar a exclusao antecipada mediante requerimento formal [1].",
+      "unfaithful": "Os dados pessoais sao retidos por 10 anos apos o encerramento da conta [1]. A exclusao antecipada e automatica e nao exige requerimento [1]."
+    },
+    {
+      "name": "seguro_vida",
+      "domain": "insurance",
+      "context": [
+        {
+          "id": "1",
+          "text": "O seguro de vida do plano Protecao Total paga indenizacao de R$ 500.000 em caso de morte acidental. Para morte natural, a indenizacao e de R$ 250.000."
+        }
+      ],
+      "faithful": "A indenizacao por morte acidental e de R$ 500.000 [1]. Para morte natural, a indenizacao e de R$ 250.000 [1].",
+      "unfaithful": "A indenizacao por morte acidental e de R$ 800.000 [1]. Para morte natural, a indenizacao e de R$ 250.000 [1]."
+    },
+    {
+      "name": "seguro_viagem",
+      "domain": "insurance",
+      "context": [
+        {
+          "id": "1",
+          "text": "O seguro viagem cobre despesas medicas no exterior ate US$ 60.000. Extravio de bagagem tem cobertura de ate US$ 1.200. Esportes radicais nao estao cobertos."
+        }
+      ],
+      "faithful": "As despesas medicas no exterior sao cobertas ate US$ 60.000 [1]. O extravio de bagagem tem cobertura de ate US$ 1.200 [1]. Esportes radicais nao estao cobertos [1].",
+      "unfaithful": "As despesas medicas no exterior sao cobertas ate US$ 100.000 [1]. Esportes radicais estao cobertos mediante adicional de 15% [1]."
+    }
+  ]
+}

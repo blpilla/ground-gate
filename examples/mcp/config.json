@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "groundgate": {
+      "command": "groundgate",
+      "args": ["mcp"]
+    }
+  }
+}

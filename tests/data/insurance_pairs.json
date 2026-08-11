@@ -1,0 +1,79 @@
+{
+  "description": "Paired faithful/unfaithful RAG answers over Brazilian health-insurance policy snippets. Every pair shares the same retrieved context; the unfaithful answer contains at least one claim the context does not support.",
+  "cases": [
+    {
+      "name": "carencia_emergencia",
+      "context": [
+        {
+          "id": "1",
+          "text": "O plano Essencial cobre consultas de emergencia com carencia de 24 horas apos a assinatura do contrato. O limite anual de reembolso do plano Essencial e de R$ 50.000."
+        }
+      ],
+      "faithful": "A carencia para consultas de emergencia no plano Essencial e de 24 horas [1]. O limite anual de reembolso do plano Essencial e de R$ 50.000 [1].",
+      "unfaithful": "A carencia para consultas de emergencia no plano Essencial e de 12 horas [1]. O limite anual de reembolso do plano Essencial e de R$ 50.000 [1]."
+    },
+    {
+      "name": "cobertura_odontologica",
+      "context": [
+        {
+          "id": "1",
+          "text": "O plano Premium inclui cobertura odontologica basica: limpeza, restauracao e extracao simples. Implantes e aparelhos ortodonticos nao estao cobertos."
+        }
+      ],
+      "faithful": "O plano Premium cobre limpeza, restauracao e extracao simples [1]. Implantes e aparelhos ortodonticos nao estao cobertos [1].",
+      "unfaithful": "O plano Premium cobre limpeza, restauracao e extracao simples [1]. Implantes dentarios estao cobertos com coparticipacao de 30% [1]."
+    },
+    {
+      "name": "prazo_sinistro",
+      "context": [
+        {
+          "id": "1",
+          "text": "O segurado deve comunicar o sinistro a seguradora em ate 30 dias corridos a partir da data do evento. A comunicacao pode ser feita pelo aplicativo ou pela central telefonica."
+        },
+        {
+          "id": "2",
+          "text": "A franquia do seguro de automovel do plano Total e de R$ 2.500 por evento."
+        }
+      ],
+      "faithful": "O segurado deve comunicar o sinistro em ate 30 dias corridos a partir da data do evento [1]. A comunicacao pode ser feita pelo aplicativo ou pela central telefonica [1].",
+      "unfaithful": "O segurado deve comunicar o sinistro em ate 30 dias corridos a partir da data do evento [2]. A franquia pode ser parcelada em ate 10 vezes sem juros [2]."
+    },
+    {
+      "name": "reembolso_consulta",
+      "context": [
+        {
+          "id": "1",
+          "text": "O reembolso de consultas medicas fora da rede credenciada e de ate R$ 300 por consulta no plano Executivo. O prazo de pagamento do reembolso e de 15 dias uteis apos o envio da documentacao completa."
+        }
+      ],
+      "faithful": "No plano Executivo, o reembolso de consultas fora da rede credenciada e de ate R$ 300 por consulta [1]. O pagamento do reembolso ocorre em 15 dias uteis apos o envio da documentacao completa [1].",
+      "unfaithful": "No plano Executivo, o reembolso de consultas fora da rede credenciada e de ate R$ 800 por consulta [1]. O pagamento do reembolso ocorre em 5 dias uteis apos o envio da documentacao completa [1]."
+    },
+    {
+      "name": "doenca_preexistente",
+      "context": [
+        {
+          "id": "1",
+          "text": "Para doencas e lesoes preexistentes declaradas, aplica-se cobertura parcial temporaria de 24 meses. Durante esse periodo, procedimentos de alta complexidade relacionados a condicao preexistente nao sao cobertos."
+        }
+      ],
+      "faithful": "Para doencas preexistentes declaradas aplica-se cobertura parcial temporaria de 24 meses [1]. Durante esse periodo, procedimentos de alta complexidade relacionados a condicao preexistente nao sao cobertos [1].",
+      "unfaithful": "Para doencas preexistentes declaradas aplica-se cobertura parcial temporaria de 24 meses [1]. Durante esse periodo, todos os procedimentos continuam cobertos normalmente mediante autorizacao previa [1]."
+    },
+    {
+      "name": "citacao_fonte_errada",
+      "context": [
+        {
+          "id": "policy",
+          "text": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias."
+        },
+        {
+          "id": "faq",
+          "text": "A troca de plano pode ser solicitada a qualquer momento pelo aplicativo, com efeito no ciclo de faturamento seguinte."
+        }
+      ],
+      "faithful": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias [policy]. A troca de plano pode ser solicitada a qualquer momento pelo aplicativo [faq].",
+      "unfaithful": "O plano Familia cobre parto normal e cesariana apos carencia de 300 dias [faq]. A troca de plano pode ser solicitada a qualquer momento pelo aplicativo [policy]."
+    }
+  ]
+}
